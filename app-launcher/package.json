@@ -1,5 +1,5 @@
 {
-  "name": "@capacitor/app-launcher",
+  "name": "@programic-capacitor/app-launcher",
   "version": "1.0.6",
   "description": "The AppLauncher API allows to open other apps",
   "main": "dist/plugin.cjs.js",
