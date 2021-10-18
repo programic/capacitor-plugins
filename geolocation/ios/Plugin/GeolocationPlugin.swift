@@ -51,11 +51,7 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
             }
 
             if CLLocationManager.authorizationStatus() == .notDetermined {
-                if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
-                    self.locationManager.requestAlwaysAuthorization()
-                } else {
-                    self.locationManager.requestWhenInUseAuthorization()
-                }
+                self.locationManager.requestWhenInUseAuthorization()
             } else {
                 self.locationManager.startUpdatingLocation()
                 self.isUpdatingLocation = true
@@ -128,16 +124,16 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
         }
 
         if !(callQueue.filter({ $0.value == .singleUpdate }).isEmpty) {
-            if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
-                self.locationManager.requestAlwaysAuthorization()
-            } else {
-                self.locationManager.requestWhenInUseAuthorization()
-            }
+            self.locationManager.requestWhenInUseAuthorization()
         }
 
         if !(callQueue.filter({ $0.value == .watch }).isEmpty) && !self.isUpdatingLocation {
             self.locationManager.startUpdatingLocation()
             self.isUpdatingLocation = true
+        }
+        
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse && Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil {
+            manager.requestAlwaysAuthorization()
         }
     }
 
@@ -192,11 +188,7 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
 
                 DispatchQueue.main.async {
                     self.locationManager.delegate = self
-                    if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
-                        self.locationManager.requestAlwaysAuthorization()
-                    } else {
-                        self.locationManager.requestWhenInUseAuthorization()
-                    }
+                    self.locationManager.requestWhenInUseAuthorization()
                 }
             } else {
                 checkPermissions(call)
