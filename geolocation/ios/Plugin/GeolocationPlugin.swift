@@ -51,7 +51,11 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
             }
 
             if CLLocationManager.authorizationStatus() == .notDetermined {
-                self.locationManager.requestWhenInUseAuthorization()
+                if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
+                    self.locationManager.requestAlwaysAuthorization()
+                } else {
+                    self.locationManager.requestWhenInUseAuthorization()
+                }
             } else {
                 self.locationManager.startUpdatingLocation()
                 self.isUpdatingLocation = true
@@ -124,7 +128,11 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
         }
 
         if !(callQueue.filter({ $0.value == .singleUpdate }).isEmpty) {
-            self.locationManager.requestLocation()
+            if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
+                self.locationManager.requestAlwaysAuthorization()
+            } else {
+                self.locationManager.requestWhenInUseAuthorization()
+            }
         }
 
         if !(callQueue.filter({ $0.value == .watch }).isEmpty) && !self.isUpdatingLocation {
@@ -184,7 +192,11 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
 
                 DispatchQueue.main.async {
                     self.locationManager.delegate = self
-                    self.locationManager.requestWhenInUseAuthorization()
+                    if Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") {
+                        self.locationManager.requestAlwaysAuthorization()
+                    } else {
+                        self.locationManager.requestWhenInUseAuthorization()
+                    }
                 }
             } else {
                 checkPermissions(call)
