@@ -190,6 +190,14 @@ public class GeolocationPlugin: CAPPlugin, CLLocationManagerDelegate {
                     self.locationManager.delegate = self
                     self.locationManager.requestWhenInUseAuthorization()
                 }
+            } else if CLLocationManager.authorizationStatus() == .authorizedWhenInUse && Bundle.main.object(forInfoDictionaryKey: "NSLocationAlwaysUsageDescription") != nil  {
+                bridge?.saveCall(call)
+                callQueue[call.callbackId] = .permissions
+
+                DispatchQueue.main.async {
+                    self.locationManager.delegate = self
+                    self.locationManager.requestAlwaysAuthorization()
+                }
             } else {
                 checkPermissions(call)
             }
