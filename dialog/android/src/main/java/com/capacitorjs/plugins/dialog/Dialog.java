@@ -46,7 +46,7 @@ public class Dialog {
         new Handler(Looper.getMainLooper())
             .post(
                 () -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
 
                     builder
                         .setMessage(message)
@@ -91,7 +91,7 @@ public class Dialog {
         new Handler(Looper.getMainLooper())
             .post(
                 () -> {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
 
                     builder
                         .setMessage(message)
@@ -147,7 +147,7 @@ public class Dialog {
         new Handler(Looper.getMainLooper())
             .post(
                 () -> {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
                     final EditText input = new EditText(context);
 
                     input.setHint(promptInputPlaceholder);

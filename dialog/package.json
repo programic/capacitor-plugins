@@ -1,6 +1,6 @@
 {
   "name": "@programic-capacitor/dialog",
-  "version": "1.0.5",
+  "version": "1.0.8",
   "description": "The Dialog API provides methods for triggering native dialog windows for alerts, confirmations, and input prompts",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -11,7 +11,7 @@
     "android/build.gradle",
     "dist/",
     "ios/Plugin/",
-    "CapacitorDialog.podspec"
+    "ProgramicCapacitorDialog.podspec"
   ],
   "author": "Ionic <hi@ionicframework.com>",
   "license": "MIT",
